@@ -1,0 +1,94 @@
+TOKEN = TOKEN
+GROUP_ID = GROUP_ID
+
+INTENTS = [
+    {
+        "name": "Поиск билетов",
+        "tokens": ("/ticket"),
+        "scenario": "Search_tickets",
+        "answer": None
+    }
+]
+
+SCENARIOS = {
+    "Search_tickets": {
+        "first_step": "step1",
+        "steps": {
+            "step1": {
+                "text": "Для поиска билетов укажите город отправления",
+                "fail_text": "Данного города нет",
+                "handler": "handle_dispatch_city",
+                "next_step": "step2"
+            },
+            "step2": {
+                "text": "Укажите город прибытия",
+                "fail_text": "Данного города нет",
+                "handler": "handle_arrival_city",
+                "next_step": "step3"
+            },
+            "step3": {
+                "text": "Укажите дату вылета в формате - (день.мес.год)",
+                "fail_text": "Укажите правильную дату",
+                "handler": "handle_date",
+                "next_step": "step4"
+            },
+            "step4": {
+                "text": "Введите понравившийся номер рейса",
+                "fail_text": "Вы указали неправильный номер рейса",
+                "handler": 'handle_number_ticket',
+                "next_step": "step5"
+            },
+            "step5": {
+                "text": "Напишите, пожалуйста, количество мест от 1 до 5",
+                "fail_text": "Вы указали неправильно колличество",
+                "handler": "handle_quantity_place",
+                "next_step": "step6"
+            },
+            "step6": {
+                "text": "Вы указали город отправки {dispatch_city}, город прибытия - {arrival_city} дату - {date} "
+                        "Номер рейса - {number_ticket} количество мест - {quantity_place}"
+                        "Данные введены правильно?",
+                "fail_text": None,
+                "handler": "handle_check_user_answer",
+                "next_step": "step7"
+            },
+            "step7": {
+                "text": "Напишите, пожалуйста, полное имя",
+                "fail_text": "Неправильно ввели",
+                "handler": "handle_full_name",
+                "next_step": "step8"
+            },
+            "step8": {
+                "text": "Напишите, пожалуйста, номер телефона",
+                "fail_text": "Неправильно набран номер",
+                "handler": "handle_check_number",
+                "next_step": "step9"
+            },
+            "step9": {
+                "text": "Вам позвонят по указанному номеру: {phone_number}",
+                "image": "generate_ticket",
+                "fail_text": None,
+                "handler": None,
+                "next_step": None
+            },
+
+        },
+    }
+}
+CITY_LIST = ['Москва', 'Питер', 'Лондон', 'Париж']
+
+DEFAULT_ANSWER = "Я бот, созданный для того, чтобы найти авиабилеты. " \
+                 "Введите /ticket для заказа билетов или /help для справки."
+
+HELP = 'Введите /ticket чтобы начать поиск авиабилетов.' \
+       'Пишите города русскими буквами. ' \
+       'Если вы хотите начать поиск билетов заново введите /ticket. ' \
+       'Для вызова данного сообщения повторно введите /help. '
+
+DB_CONFIG = dict(
+    database='vk_chatbot',
+    user='postgres',
+    password='postgres0987',
+    host='',
+    port=5432
+)
