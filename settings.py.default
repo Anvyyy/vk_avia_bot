@@ -86,9 +86,9 @@ HELP = 'Введите /ticket чтобы начать поиск авиабил
        'Для вызова данного сообщения повторно введите /help. '
 
 DB_CONFIG = dict(
-    database='vk_chatbot',
+    database='name_data_base',
     user='postgres',
-    password='postgres0987',
+    password='you_password',
     host='',
     port=5432
 )
